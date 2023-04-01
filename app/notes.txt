@@ -1,0 +1,22 @@
+# create devices curl
+
+curl -d '{"id": 3, "mac": "96-40-D1-32-D7-1A", "firmware": "3.03.00"}' localhost:8080/devices
+curl -d '{"id": 4, "mac": "32-D7-1A-96-40-D1", "firmware": "3.03.00"}' localhost:8080/devices
+
+hey -n 100000 -c 1 -q 2 -m POST -d '{"id": 4, "mac": "32-D7-1A-96-40-D1", "firmware": "3.03.00"}' http://localhost:8080/devices
+
+# upgrade devices curl
+
+curl -X PUT -d '{"firmware": "2.3.0"}' http://localhost:8080/devices/1
+
+hey -n 100000 -c 1 -q 2 -m PUT -d '{"firmware": "2.3.0"}' http://localhost:8080/devices/1
+
+# get devices curl
+curl http://localhost:8080/devices
+
+hey -n 100000 -c 1 -q 2 -m GET http://localhost:8080/devices
+
+# get login
+curl http://localhost:8080/login
+
+hey -n 100000 -c 1 -q 2 -m GET http://localhost:8080/login
